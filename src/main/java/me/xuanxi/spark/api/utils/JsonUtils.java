@@ -11,15 +11,15 @@ import java.time.format.DateTimeParseException;
 public class JsonUtils {
     private static final Gson gson = new Gson();
 
-    public static String toJson(Object src){
-        return gson.toJson(src);
+    public static String toJson(SportEntity sportEntity){
+        return gson.toJson(sportEntity);
     }
 
-    public static SportEntity parseSportEntity(String json) throws JsonSyntaxException, DateTimeParseException {
+    public static SportEntity fromJson(String json) throws JsonSyntaxException, DateTimeParseException, IllegalArgumentException{
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         SportEntity se = new SportEntity();
         se.setUserid(jsonObject.get("userid").getAsLong());
-        se.setDate(DateUtils.parseDate(jsonObject.get("date").getAsString()));
+        se.setDateString(jsonObject.get("date").getAsString());
         se.setType(SportType.fromString(jsonObject.get("type").getAsString()));
         se.setDuration(jsonObject.get("duration").getAsInt());
         return se;

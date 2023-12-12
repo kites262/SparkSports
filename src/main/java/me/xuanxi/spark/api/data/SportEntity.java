@@ -1,17 +1,18 @@
 package me.xuanxi.spark.api.data;
 
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.Gson;
 import lombok.Data;
+import me.xuanxi.spark.api.utils.DateUtils;
 import me.xuanxi.spark.api.utils.JsonUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 @Data
 @Document(collection = "sportEntity")
 public class SportEntity {
+    private static final Gson gson = new Gson();
 
     @Id private String id;
     private long userid;
@@ -19,11 +20,15 @@ public class SportEntity {
     private SportType type;
     private int duration;
 
+    public void setDateString(String str){
+        this.date = DateUtils.parseDate(str);
+    }
+
     public String toJson(){
         return JsonUtils.toJson(this);
     }
 
-    public static SportEntity parseSportEntity(String json) throws JsonSyntaxException, DateTimeParseException {
-        return JsonUtils.parseSportEntity(json);
+    public static SportEntity fromJson(String json){
+        return JsonUtils.fromJson(json);
     }
 }
