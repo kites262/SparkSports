@@ -17,4 +17,6 @@ public class SportEntityService {
     public void saveSportEntity(SportEntity entity){
         sportEntityRepository.save(entity);
     }
+
+
 }
