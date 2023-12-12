@@ -16,12 +16,12 @@ public class SportEntity {
 
     @Id private String id;
     private long userid;
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
     private SportType type;
     private int duration;
 
-    public void setDateString(String str){
-        this.date = DateUtils.parseDate(str);
+    public void setDateTimeString(String str){
+        this.dateTime = DateUtils.parseDateTime(str);
     }
 
     public String toJson(){

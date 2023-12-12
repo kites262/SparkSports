@@ -18,7 +18,7 @@ public class GetController {
         event.setUserid(23009202333L);
         event.setType(SportType.basketball);
         event.setDuration(8080);
-        event.setDate(LocalDateTime.now());
+        event.setDateTime(LocalDateTime.now());
         return event.toJson();
     }
 }
