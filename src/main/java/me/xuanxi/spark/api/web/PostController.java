@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.format.DateTimeParseException;
 
 @RestController
-@RequestMapping("/spark")
+@RequestMapping(Paths.ROOT)
 public class PostController {
     private final SportEntityService sportEntityService;
     private static final Logger logger = LoggerFactory.getLogger(SportEntity.class);
@@ -27,7 +27,7 @@ public class PostController {
         this.sportEntityService = sportEntityService;
     }
 
-    @PostMapping("/update")
+    @PostMapping(Paths.update)
     public ResponseEntity<String> update(@RequestBody String request, HttpServletRequest httpRequest){
         String clientIP = httpRequest.getHeader("X-Forwarded-For");
         logger.info("Received request from IP@{}", clientIP);

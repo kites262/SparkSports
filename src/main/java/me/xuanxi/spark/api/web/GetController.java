@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/spark")
+@RequestMapping(Paths.ROOT)
 public class GetController {
 
-    @GetMapping("/test")
+    @GetMapping(Paths.test)
     public String test() {
         SportEntity event = new SportEntity();
         event.setUserid(23009202333L);
