@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping(Paths.ROOT)
 public class PostController {
     private final SportEntityService sportEntityService;
-    private static final Logger logger = LoggerFactory.getLogger(SportEntity.class);
+    private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
     private PostController(SportEntityService sportEntityService){
@@ -30,24 +31,25 @@ public class PostController {
     @PostMapping(Paths.update)
     public ResponseEntity<String> update(@RequestBody String request, HttpServletRequest httpRequest){
         String clientIP = httpRequest.getHeader("X-Forwarded-For");
-        logger.info("Received request from IP@{}", clientIP);
+        logger.info("Received " + Paths.update + " from IP@{}", clientIP);
         try{
             SportEntity s = SportEntity.fromJson(request);
             sportEntityService.saveSportEntity(s);
+            //System.out.println(s.getDateTime().toString());
         }catch (Exception e) {
             if (e instanceof JsonSyntaxException) {
-                logger.error("---Exception: Json Syntax Error---");
+                logger.error("\n---Exception: Json Syntax Error---");
             } else if (e instanceof DateTimeParseException) {
-                logger.error("---Exception: Date Time Parse Error---");
+                logger.error("\n---Exception: Date Time Parse Error---");
             } else if (e instanceof IllegalArgumentException) {
-                logger.error("---Exception: Illegal Argument---");
+                logger.error("\n---Exception: Illegal Argument---");
             } else {
-                logger.error("---Exception: POST Failed---");
+                logger.error("\n---Exception: POST Failed---");
             }
             logger.error("{}", request);
             logger.error(e.toString());
-            logger.error("----------------------------");
+            logger.error("\n----------------------------");
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body("Received: " + request);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Received.");
     }
 }

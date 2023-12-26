@@ -8,18 +8,20 @@ import me.xuanxi.spark.api.data.SportEntity;
 import me.xuanxi.spark.api.data.SportType;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 
 public class JsonUtils {
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, new JsonLocalDateTimeSerializer())
+            .registerTypeAdapter(LocalDateTime.class, new JsonDateTimeSerializer())
             .create();
 
     public static String toJson(SportEntity sportEntity){
         return gson.toJson(sportEntity);
     }
 
-    public static SportEntity fromJson(String json) throws JsonSyntaxException, DateTimeParseException, IllegalArgumentException{
+    public static SportEntity fromJson(String json)
+            throws JsonSyntaxException, DateTimeParseException, IllegalArgumentException{
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         SportEntity se = new SportEntity();
         se.setUserid(jsonObject.get("userid").getAsLong());
