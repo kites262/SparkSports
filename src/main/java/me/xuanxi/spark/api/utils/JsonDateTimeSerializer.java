@@ -7,8 +7,9 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-public class JsonLocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+public class JsonDateTimeSerializer implements JsonSerializer<LocalDateTime> {
     @Override
     public JsonElement serialize(LocalDateTime dateTime, Type typeOfSrc, JsonSerializationContext context) {
         // Implement your serialization logic for LocalDateTime here
